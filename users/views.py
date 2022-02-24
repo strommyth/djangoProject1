@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import NewUser
-
+from django.contrib import auth
 
 # Create your views here.
 def home(request):
@@ -16,28 +16,14 @@ def home(request):
 
 
 
-def signup(request):
-    if request.method == 'POST':
-        uname = request.POST.get('uname')
-        pwd = request.POST.get('pwd')
-        if NewUser.objects.filter(id_numbers=uname).count()>0:
-            return HttpResponse('Username already exists.')
-        else:
-            user = NewUser(id_numbers=uname, password=pwd)
-            user.save()
-            return redirect('login')
-    else:
-        return render(request, 'signup.html')
-
-
-
 def login(request):
     if request.method == 'POST':
         uname = request.POST.get('uname')
         pwd = request.POST.get('pwd')
-
-        check_user = NewUser.objects.filter(id_numbers=uname, password=pwd)
-        if check_user:
+        user = auth.authenticate(id_numbers = uname, password = pwd)
+        # check_user = NewUser.objects.filter(id_numbers=uname, password=pwd)
+        if user is not None and user.is_active:
+            auth.login(request, user)
             request.session['user'] = uname
             return redirect('home')
         else:
