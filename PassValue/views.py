@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from PassValue.forms import HomeForm
+from users.models import NewUser
 # Create your views here.
 class HomeView(TemplateView):
     def index(request):
@@ -17,6 +18,7 @@ class HomeView(TemplateView):
         if form.is_valid():
             form.save()
             args = {'form': form}
+            NewUser.is_state = "SEC303"
             return render(request,'home.html',args)
 
         args = {'form': form}
