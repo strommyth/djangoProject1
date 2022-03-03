@@ -1,0 +1,28 @@
+<table class="table" border="10" align="center" width="30%" >
+    <thead>
+        <tr>
+            <th>成員名單</th>
+            <th>所在位置</th>
+            <th>註解</th>
+            <th>修改</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for x in user_test %}
+            {% if x.is_state == 'SEC303' %}
+                <tr>
+                    <td style="text-align: center"><span style="color: dodgerblue;">{{ x.user_name }}</span></td>
+                    <td width="10%"><select name="catego">
+                            <option selected='selected'>{{x.is_state}}</option>
+                    </select></td>
+
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+
+    </tbody>
+
+</table>
+
+</table>
