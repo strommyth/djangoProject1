@@ -8,11 +8,17 @@ def home(request):
     #posts = NewUser.objects.all()
     if 'user' in request.session:
         current_user = request.session['user']
-        param = {'current_user': current_user}
+        user_test = request.user.user_name
+        user_list = NewUser.objects.all()
+        print(user_list)
+        #username = NewUser.objects.get(user_name=request.user.user_name)
+        #userprofile = NewUser.objects.get(username=username)
+        param = {'current_user': current_user, 'user_test':user_test, 'user_list':user_list,}
         return render(request, 'base.html', param)
     else:
         return redirect('login')
     return render(request, 'login.html')
+
 
 
 
@@ -38,3 +44,25 @@ def logout(request):
     except:
         return redirect('login')
     return redirect('login')
+
+def SEC_303(request):
+    if 'user' in request.session:
+        user_test = NewUser.objects.all()
+        #username = NewUser.objects.get(user_name=request.user.user_name)
+        #userprofile = NewUser.objects.get(username=username)
+        param = {'user_test':user_test}
+        return render(request, 'SEC303.html', param)
+    else:
+        return redirect('login')
+    return render(request, 'login.html')
+
+def SEC_404(request):
+    if 'user' in request.session:
+        user_test = NewUser.objects.all()
+        #username = NewUser.objects.get(user_name=request.user.user_name)
+        #userprofile = NewUser.objects.get(username=username)
+        param = {'user_test':user_test}
+        return render(request, 'SEC404.html', param)
+    else:
+        return redirect('login')
+    return render(request, 'login.html')

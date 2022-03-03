@@ -8,11 +8,11 @@
 
     <a href="/">Home</a>
     <span>/</span>
-
     {% if current_user %}
+
         <a href="{% url 'logout' %}">Logout</a>
         <hr>
-        <h2>Welcome <span style="color: dodgerblue;">{{current_user}}</span>!</h2>
+            <h2>Welcome <span style="color: lightgreen;">{{user_test}}</span>!</h2>
     {% else %}
         <a href="{% url 'login' %}">Login</a>
         <span>/</span>

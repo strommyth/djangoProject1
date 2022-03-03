@@ -14,7 +14,7 @@ class UserAdminConfig(UserAdmin,ImportExportModelAdmin):
                     'is_active', 'is_staff','is_state')
     ordering = ('email',)
     fieldsets = (
-        (None, {'fields': ('email', 'user_name', 'id_numbers','password',)}),
+        (None, {'fields': ('email', 'user_name', 'id_numbers','password','is_state')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Personal', {'fields': ('about',)}),
     )
