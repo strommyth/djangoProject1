@@ -1,0 +1,8 @@
+{% for member in members %}
+<table>
+    <tr>
+        <td><a href="{% url 'MemberUpdate' member_id=member.id %}">{{ member.name}}</a></td>
+    </tr>
+</table>
+{% endfor %}
+

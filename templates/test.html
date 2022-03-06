@@ -1,0 +1,73 @@
+<?php
+/*刪除資料表內容*/
+if (isset($_POST['delete_staff']))
+{
+	$id2 = $_POST['delete_id'];
+	$query2 = "DELETE FROM staff WHERE staff_id='$id2' ";
+	$query_run2 = mysqli_query($con,$query2);
+}
+?>
+
+<body>
+<div class="container">
+	<table class="table table-sm table-bordered"style="text-align:center;">
+		<thead style="text-align:center;">
+			<tr style="text-align:center;">
+				<th>檔案類別</th>
+				<th>會員姓名</th>
+				<th>會員等級</th>
+				<th>刪除</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<?php
+				$query = "SELECT * FROM staff  ";
+				$query_run = mysqli_query($con,$query); //$con <<此變數來自引入的 db_cn.php
+
+				if(mysqli_num_rows($query_run) > 0)
+				{
+					foreach($query_run as $row)
+					{
+			?>
+            <tr>
+                <td><?php echo $row['staff_id']; ?></td>
+                <td><?php echo $row['staff_name']; ?></td>
+                <td><?php echo $row['staff_role']; ?></td>
+                <td>
+                    <form method="post" action="" >
+                        <!-- 下面有個 input type="hidden" 是讓待會的PHP 知道要刪除哪一筆資料 -->
+                        <input type="hidden"
+                               name="delete_id"
+                               value="<?php echo $row['staff_id']; ?>">
+                        <button name="delete_staff"
+                                class="badge badge-danger"
+                                onclick="javascript:return del();">
+                            刪除
+                        </button>
+                      </form>
+                 </td>
+            </tr>
+			<?php
+				  }
+				}
+			?>
+		</tbody>
+	</div>
+</body>
+
+<!-- 刪除確認的JS -->
+<script type="text/javascript">
+function del()
+{
+	var msg = "您真的確定要刪除嗎？\n\n請確認！";
+	if (confirm(msg)==true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+};
+</script>

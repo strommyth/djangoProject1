@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import NewUser
 from django.contrib import auth
-
 # Create your views here.
 def home(request):
     #posts = NewUser.objects.all()
@@ -66,3 +65,36 @@ def SEC_404(request):
     else:
         return redirect('login')
     return render(request, 'login.html')
+
+
+def testdb(request):
+    test2 = NewUser.objects.get(user_name__contains='陳益祥')
+    test2.user_name = 'Twitter'
+    test2.save()
+
+    # 另外一種方式
+    # Test.objects.filter(id=1).update(name='Google')
+
+    # 修改所有的列
+    # Test.objects.all().update(name='Google')
+
+    return HttpResponse("<p>修改成功</p>")
+'''
+def edit_member(request, user_id):
+    member = get_object_or_404(NewUser, id=user_id)
+    form = MemberForm(request.POST or None, instance=member)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            # do something else, like redirect to a different view
+
+    return render(request, 'MemberAdd.html', {'form': form})
+'''
+
+
+def mytest(request):
+    return render(request, 'mytest.html')
+
+def Vlogin(request):
+    return render(request, 'Vlogin.html')
